@@ -1,22 +1,22 @@
 <mat-toolbar color="black" class="flex justify-between">
-    <input matInput placeholder="Chercher un modèle 3D">
+    <input matInput placeholder="Chercher un modèle 3D" [(ngModel)]="searchText">
     <button mat-raised-button color="primary" class="add-button" (click)="openAddModelDialog()"> <fa-icon [icon]="faPlus"></fa-icon> Ajouter un modèle 3D</button>
 </mat-toolbar>
 
 <div class="container">
     <div class="list">
-        <div *ngFor="let model of models" class="flex item" (click)="selectModel(model)">
+        <div *ngFor="let model of models | appFilter: searchText" class="flex item" (click)="selectModel(model)">
             <img [src]="imgPath(model.modelName)" [alt]="model.modelName" class="icon">
             <span>{{model.modelName}}</span>
         </div>
     </div>
     <div *ngIf="selectedModel" class="details">
         <div class="flex justify-between">
-            <span class="title">{{selectedModel.modelName}}</span>
-            <span class="title">{{selectedModel.author}}</span>
+            <span class="title bold">{{selectedModel.modelName}}</span>
+            <span class="title bold">{{selectedModel.author}}</span>
         </div>
-        <div class="element">Publié le : {{formatDate(selectedModel.date)}}</div>
-        <div class="element">Polygones : {{selectedModel.polygons}}</div>
-        <div class="element">Description : {{selectedModel.description}}</div>
+        <div class="element"><span class="bold">Publié le : </span>{{selectedModel.date | date:'dd MMMM yyyy'}}</div>
+        <div class="element"><span class="bold">Polygones : </span>{{selectedModel.polygons}}</div>
+        <div class="element"><span class="bold">Description : </span>{{selectedModel.description}}</div>
     </div>
 </div>

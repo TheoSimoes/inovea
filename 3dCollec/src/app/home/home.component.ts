@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { HomeService, Model } from './home.service';
-import { DatePipe } from '@angular/common';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { AddModelComponent } from './add-model/add-model.component';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -21,9 +20,9 @@ export type DialogData = {
 })
 export class HomeComponent implements OnInit {
   faPlus = faPlus;
-  datePipe = new DatePipe("fr-FR");
   models: Model[] = [];
   selectedModel: Model | undefined = undefined;
+  searchText = '';
 
   constructor(
       private homeService: HomeService,
@@ -31,7 +30,7 @@ export class HomeComponent implements OnInit {
     ){}
 
   ngOnInit(): void {
-    this.homeService.getModels().subscribe((resp: any) => {
+    this.homeService.getModels().subscribe((resp) => {
       this.models = resp;
     });
   }
@@ -44,23 +43,19 @@ export class HomeComponent implements OnInit {
     this.selectedModel = model;
   }
 
-  formatDate(date: string): string | null {
-    return this.datePipe.transform(date, 'dd-MMMM-yyyy');
-  }
-
   openAddModelDialog(): void {
     const dialogRef = this.dialog.open(AddModelComponent, {
       width: '1200px',
-
+      data: {}
     });
 
     dialogRef.afterClosed().subscribe((result: DialogData) => {
-      console.log('The dialog was closed');
       if(result){
         const newModel: Model = {...result, date: new Date(Date.now()).toString(), id: uuidv4()};
         this.homeService.addModel(newModel);
+        alert("Le modèle à bien été ajouté !")
       }
     });
-  
+
   }
 }

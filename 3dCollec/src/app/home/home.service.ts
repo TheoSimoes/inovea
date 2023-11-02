@@ -16,13 +16,13 @@ export type Model = {
 })
 export class HomeService {
 
-  constructor(protected httpClient: HttpClient) { }
-  
+  constructor(private httpClient: HttpClient) { }
+
   getModels(): Observable<Model[]>{
     return this.httpClient.get<Model[]>("http://localhost:3333/api/models");
   }
 
-  addModel(model: Model){
-    this.httpClient.post<Model>("http://localhost:3333/api/models", {model});
+  addModel(model: Model): Observable<Model>{
+    return this.httpClient.post<Model>("http://localhost:3333/api/models", model);
   }
 }

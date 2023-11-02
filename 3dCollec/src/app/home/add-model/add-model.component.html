@@ -2,26 +2,30 @@
 <div mat-dialog-content>
     <p>Nom du modèle</p>
     <mat-form-field>
-      <input matInput [(ngModel)]="data.modelName">
+      <input matInput [(ngModel)]="data.modelName" #name="ngModel" required cdkFocusInitial>
     </mat-form-field>
-    <p>Autheur</p>
+    <p>Auteur</p>
     <mat-form-field>
-      <input matInput [(ngModel)]="data.author">
+      <input matInput [(ngModel)]="data.author" #author="ngModel" required>
     </mat-form-field>
     <p>Nombre de polygones</p>
     <mat-form-field>
-      <input matInput [(ngModel)]="data.polygons">
+      <input type="number" matInput [(ngModel)]="data.polygons" #polygons="ngModel" required>
     </mat-form-field>
     <p>Nom du fichier</p>
     <mat-form-field>
-      <input matInput [(ngModel)]="data.filename">
+      <input matInput [(ngModel)]="data.filename" #filename="ngModel" required>
     </mat-form-field>
     <p>Description</p>
     <mat-form-field>
-      <input matInput [(ngModel)]="data.description">
+      <textarea matInput [(ngModel)]="data.description" cdkAutosizeMinRows="2"></textarea>
     </mat-form-field>
   </div>
   <div mat-dialog-actions>
-    <button mat-button (click)="onClose()" class="color-white">Fermer</button>
-    <button mat-button class="color-white" [mat-dialog-close]="data.modelName" cdkFocusInitial>Enregistrer</button>
+    <button mat-button (click)="onClose()">Fermer</button>
+    <button mat-button
+      [disabled]="name.errors?.['required'] || author.errors?.['required'] || polygons.errors?.['required'] || filename.errors?.['required']"
+      [mat-dialog-close]="data">
+      Enregistrer
+    </button>
   </div>
