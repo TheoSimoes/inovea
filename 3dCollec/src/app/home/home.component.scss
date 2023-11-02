@@ -1,0 +1,48 @@
+.flex{
+    display: flex;
+}
+
+.justify-between{
+    justify-content: space-between;
+}
+
+.container{
+    padding: 20px 10%;
+    display: flex;
+    color: white;
+
+    .list{
+        width: 25%;
+
+        .item{
+            padding: 15px;
+            background-color: #212121;
+            border-radius: 2px;
+            margin: 10px 0;
+            align-items: center;
+            justify-content: space-around;
+
+            .icon{
+                width: 50px;
+            }
+        }
+    
+    
+    }
+
+    .details {
+        background-color: #212121;
+        width: 100%;
+        border-radius: 2px;
+        margin: 10px;
+        
+        .element {
+            margin: 10px;
+        }
+
+        .title {
+            margin: 10px;
+            font-size: large;
+        }
+    }
+}
