@@ -56,7 +56,6 @@ app.post('/api/models', (req, res) => {
     };
 
     data.push(model);
-    console.log("🚀 ~ file: index.ts:59 ~ app.post ~ model:", model);
 
     res.send(model);
 });
